@@ -1,41 +1,44 @@
-// backend/db.js
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const { v4: uuidv4 } = require('uuid');
 
-const MONGODB_URI = process.env.MONGODB_URI;
+// Define the user schema
+const userSchema = new mongoose.Schema({
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  apiToken: { type: String, unique: true }
+});
 
-if (!MONGODB_URI) {
-  throw new Error(
-    'Please define the MONGODB_URI environment variable inside .env.local'
-  );
-}
-
-let cached = global.mongoose;
-
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
-}
-
-async function dbConnect() {
-  if (cached.conn) {
-    return cached.conn;
+// Pre-save hook to hash the password
+userSchema.pre('save', async function (next) {
+  if (this.isModified('password')) {
+    this.password = await bcrypt.hash(this.password, 10);
   }
+  if (!this.apiToken) {
+    this.apiToken = uuidv4();
+  }
+  next();
+});
 
-  if (!cached.promise) {
-    const opts = {
+// Compare password method for authentication
+userSchema.methods.comparePassword = function (candidatePassword) {
+  return bcrypt.compare(candidatePassword, this.password);
+};
+
+const User = mongoose.model('User', userSchema);
+
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.DATABASE_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      bufferCommands: false,
-      bufferMaxEntries: 0,
-      useFindAndModify: false,
       useCreateIndex: true,
-    };
-
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      return mongoose;
     });
+    console.log('MongoDB connected');
+  } catch (error) {
+    console.error('Error connecting to MongoDB', error);
+    process.exit(1); // Exit process with failure
   }
-  cached.conn = await cached.promise;
-  return cached.conn;
-}
+};
 
-module.exports = dbConnect;
+module.exports = { connectDB, User };

@@ -3,7 +3,6 @@ const express = require('express');
 const Hospital = require('../models/Hospital');
 const dbConnect = require('../db');
 const authMiddleware = require('../middleware/authMiddleware');
-
 const router = express.Router();
 
 router.get('/', async (req, res) => {

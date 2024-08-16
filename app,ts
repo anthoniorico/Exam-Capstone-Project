@@ -1,0 +1,16 @@
+// app.ts
+
+import express, { Application } from 'express';
+
+const app: Application = express();
+
+// Set up middleware, routes, etc.
+app.use(express.json());
+
+// Example route
+app.get('/api/hospitals', (req, res) => {
+  res.status(200).json({ hospitals: [] });
+});
+
+// Export the app
+export default app;

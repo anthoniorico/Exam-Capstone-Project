@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest",
+    "test:unit": "jest --config jest.unit.config.js",
+    "test:component": "jest --config jest.component.config.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

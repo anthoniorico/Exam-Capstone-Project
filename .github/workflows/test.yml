@@ -19,13 +19,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'  # Adjust the version to match your project
+          node-version: '16'
 
       - name: Install dependencies
         run: npm install
 
       - name: Run unit tests
-        run: npm run test:unit  # This runs the unit tests
+        run: npm run test:unit  # Runs unit tests with Jest
 
   component-tests:
     name: Component Tests
@@ -43,4 +43,4 @@ jobs:
         run: npm install
 
       - name: Run component tests
-        run: npm run test:component  # This runs the component tests
+        run: npm run test:component  # Runs component tests with Jest

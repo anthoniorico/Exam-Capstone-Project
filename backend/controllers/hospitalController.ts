@@ -11,7 +11,7 @@ export const getHospitals: RequestHandler = async (req: Request, res: Response):
     }
 };
 
-export const getHospitalById: RequestHandler = async (req: Request, res: Response): Promise<void> => {
+export const getHospitalById: RequestHandler = async (req: Request, res: Response): Promise<any> => {
     try {
         const hospital = await Hospital.findById(req.params.id);
         if (!hospital) {
@@ -23,7 +23,7 @@ export const getHospitalById: RequestHandler = async (req: Request, res: Respons
     }
 };
 
-export const createHospital: RequestHandler = async (req: Request, res: Response): Promise<void> => {
+export const createHospital: RequestHandler = async (req: Request, res: Response): Promise<any> => {
     const { name, city, address, phone, email, services } = req.body;
 
     try {
@@ -43,7 +43,7 @@ export const createHospital: RequestHandler = async (req: Request, res: Response
     }
 };
 
-export const updateHospital: RequestHandler = async (req: Request, res: Response): Promise<void> => {
+export const updateHospital: RequestHandler = async (req: Request, res: Response): Promise<any> => {
     const { name, city, address, phone, email, services } = req.body;
 
     try {
@@ -67,7 +67,7 @@ export const updateHospital: RequestHandler = async (req: Request, res: Response
     }
 };
 
-export const deleteHospital: RequestHandler = async (req: Request, res: Response): Promise<void> => {
+export const deleteHospital: RequestHandler = async (req: Request, res: Response): Promise<any> => {
     try {
         const hospital = await Hospital.findById(req.params.id);
 

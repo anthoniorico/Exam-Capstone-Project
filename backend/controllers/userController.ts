@@ -72,3 +72,8 @@ export const loginUser = async (req: Request, res: Response) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+// Get user profile
+export const getUserProfile = async(req: Request, res: Response  ) => {
+
+}

@@ -23,7 +23,7 @@
     "eslint-plugin-react": "^7.34.4",
     "eslint-plugin-react-hooks": "^4.6.2",
     "express": "^4.19.2",
-    "firebase": "^10.12.4",
+    "firebase": "^10.12.5",
     "jsonwebtoken": "^9.0.2",
     "markdown-to-jsx": "^7.4.7",
     "mongodb": "^6.8.0",
